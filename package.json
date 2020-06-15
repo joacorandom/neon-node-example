@@ -2,7 +2,7 @@
   "name": "fibonacci_node",
   "version": "0.1.0",
   "description": "",
-  "main": "lib/index.js",
+  "main": "index.js",
   "author": "Joaquin Salazar <joaco.random33@gmail.com>",
   "license": "MIT",
   "dependencies": {
