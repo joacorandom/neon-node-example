@@ -1,12 +1,12 @@
 use neon::prelude::*;
 use neon::register_module;
-use num_bigint::BigUint;
-use num_traits::{One, Zero};
+
+use rug::Integer;
 use std::mem::replace;
 
-fn compute(n: usize) -> BigUint {
-    let mut f0: BigUint = Zero::zero();
-    let mut f1: BigUint = One::one();
+fn compute(n: usize) -> Integer {
+    let mut f0: Integer = Integer::from(0);
+    let mut f1: Integer = Integer::from(1);
     for _ in 0..n {
         let f2 = f0 + &f1;
         // This is a low cost way of swapping f0 with f1 and f1 with f2.
@@ -18,7 +18,7 @@ fn compute(n: usize) -> BigUint {
 fn fibonacci_sync(mut cx: FunctionContext) -> JsResult<JsString> {
     let n = cx.argument::<JsNumber>(0)?.value() as usize;
     let big = compute(n);
-    Ok(cx.string(big.to_str_radix(10)))
+    Ok(cx.string(big.to_string_radix(10)))
 }
 
 struct FibonacciTask {
@@ -26,16 +26,16 @@ struct FibonacciTask {
 }
 
 impl Task for FibonacciTask {
-    type Output = BigUint;
+    type Output = Integer;
     type Error = ();
     type JsEvent = JsString;
 
-    fn perform(&self) -> Result<BigUint, ()> {
+    fn perform(&self) -> Result<Integer, ()> {
         Ok(compute(self.argument))
     }
 
-    fn complete(self, mut cx: TaskContext, result: Result<BigUint, ()>) -> JsResult<JsString> {
-        Ok(cx.string(result.unwrap().to_str_radix(10)))
+    fn complete(self, mut cx: TaskContext, result: Result<Integer, ()>) -> JsResult<JsString> {
+        Ok(cx.string(result.unwrap().to_string_radix(10)))
     }
 }
 
