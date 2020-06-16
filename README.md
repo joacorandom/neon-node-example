@@ -1,5 +1,10 @@
 # fibonacci_node
 
+## Build
+Mediante npm es posible compilar el módulo de Rust y obtener las dependencias de node secuencialmente.
+```
+$ npm install
+```
 
 Este es un ejemplo sencillo de consumo de código nativo compilado con Rust y consumido desde node. 
 
