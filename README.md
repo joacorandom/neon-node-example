@@ -24,6 +24,9 @@ $ node index.js 1000000 native
 
 ## Dependencias
 
+**Dependencias de sistema**:
+* [m4](https://www.gnu.org/software/m4/)
+
 **Rust**:
 * [neon](https://crates.io/crates/neon)
 * [rug](https://crates.io/crates/rug)
